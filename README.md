@@ -1,6 +1,6 @@
-# VCR Starter Project
+# Vonage JWT Token
 
-This project is a starting off point to help you build a Vonage Cloud Runtime application. 
+This project aims to generate JWTs on the VCR when using the Vonage Voice API.
 
 To start debugging the project, open the "Run and Debug" menu on the left side. Then start the debugger by clicking the play button.
 

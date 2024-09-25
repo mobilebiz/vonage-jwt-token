@@ -1,15 +1,15 @@
 project:
-    name: helloworld
+  name: vonage-jwt-token
 instance:
-    name: dev
-    runtime: nodejs18
-    region: aws.euw1
-    application-id: 74c77d05-d2b0-49a5-91a1-c06885f7acf9
-    build-script: "./build.sh"
-    entrypoint: [npm, run, start]
-    environment:
-        - name: ENV_VAR
-          value: "helloworld"
+  name: dev
+  runtime: nodejs18
+  region: aws.apse1
+  application-id: 1c60207e-649e-48a9-83ea-c10fa3b7e8df
+  build-script: "./build.sh"
+  entrypoint: [npm, run, start]
+  environment:
+    - name: VCR_PORT
+      value: 3000
 debug:
-    name: debug
-    entrypoint: [nodemon, --inspect, index.js]
+  name: debug
+  entrypoint: [nodemon, --inspect, index.js]
