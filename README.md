@@ -12,7 +12,7 @@ To open the project in your browser in the bottom panel, open the "Terminal" tab
 
 If you would like to deploy your project, in the bottom panel open the "Terminal" tab and run the deploy command
 
-```
+```sh
 vcr deploy
 ```
 
