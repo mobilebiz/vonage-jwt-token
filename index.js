@@ -53,19 +53,18 @@ app.post('/makeCall', async (req, res, next) => {
     const body = {
         to: [{
             type: 'phone',
-            // number: req.body.to
-            number: '818040643515'
+            number: req.body.to
         }],
         from: {
             type: 'phone',
-            number: '815031023330'
+            number: req.body.from
         },
         ncco: [{
             action: 'talk',
             language: 'ja-JP',
             model: 3,
             premium: true,
-            text: 'こんにちは、今日はいい天気ですね。'
+            text: req.body.text
         }]
     };
 
