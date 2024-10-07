@@ -73,8 +73,10 @@ app.post('/makeCall', async (req, res, next) => {
         const response = await axios.post(url, body, { headers });
 
         console.log('Call response:', response.data);
+        res.json(response.data);
     } catch (error) {
         console.error('There was a problem with the axios operation:', error);
+        res.status(500).send('There was a problem with the axios operation');
     }
 });
 
