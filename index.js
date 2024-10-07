@@ -1,5 +1,6 @@
 import { Voice, vcr } from "@vonage/vcr-sdk";
 import express from 'express';
+import axios from 'axios';
 import cors from 'cors';
 
 const app = express();
@@ -49,7 +50,7 @@ app.post('/makeCall', async (req, res, next) => {
         'Authorization': `Bearer ${jwt}`,
         'Content-Type': 'application/json'
     };
-    const body = JSON.stringify({
+    const body = {
         to: [{
             type: 'phone',
             // number: req.body.to
@@ -60,29 +61,20 @@ app.post('/makeCall', async (req, res, next) => {
             number: '815031023330'
         },
         ncco: [{
-        action: 'talk',
-        language: 'ja-JP',
-        model: 3,
-        premium: true,
-        text: 'こんにちは、今日はいい天気ですね。'
+            action: 'talk',
+            language: 'ja-JP',
+            model: 3,
+            premium: true,
+            text: 'こんにちは、今日はいい天気ですね。'
         }]
-    });
+    };
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: headers,
-            body: body
-        });
+        const response = await axios.post(url, body, { headers });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        console.log('Call response:', data);
+        console.log('Call response:', response.data);
     } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
+        console.error('There was a problem with the axios operation:', error);
     }
 });
 
