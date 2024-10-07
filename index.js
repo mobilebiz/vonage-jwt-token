@@ -41,6 +41,34 @@ app.get('/getToken', async (req, res, next) => {
     }
 });
 
+// Send a message.
+app.post('/sendMessage', async (req, res, next) => {
+    console.log(`🐞 sendMessage called.`);
+    console.dir(req.body);
+    const url = 'https://api.nexmo.com/v1/messages';
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${req.body.token}`
+    };
+    const body = {
+        message_type: 'text',
+        text: req.body.text,
+        from: 'VonageAPI',
+        to: req.body.to,
+        channel: 'sms'
+    };
+    try {
+        const response = await axios.post(url, body, { headers });
+
+        console.log('Message response:', response.data);
+        res.json(response.data);
+    } catch (error) {
+        console.error('There was a problem with the axios operation:', error);
+        res.status(500).send('There was a problem with the axios operation');
+    }
+});
+
+// Make a call.
 app.post('/makeCall', async (req, res, next) => {
     console.log(`🐞 makeCall called.`);
     console.dir(req.body);
