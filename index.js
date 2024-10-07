@@ -44,10 +44,9 @@ app.get('/getToken', async (req, res, next) => {
 app.post('/makeCall', async (req, res, next) => {
     console.log(`🐞 makeCall called.`);
     console.dir(req.body);
-    const jwt = generateJWT();  // For InApp, the parameter should be given a user name.
     const url = 'https://api.nexmo.com/v1/calls';
     const headers = {
-        'Authorization': `Bearer ${jwt}`,
+        'Authorization': `Bearer ${req.body.token}`,
         'Content-Type': 'application/json'
     };
     const body = {
