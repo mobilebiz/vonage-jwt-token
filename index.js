@@ -40,6 +40,52 @@ app.get('/getToken', async (req, res, next) => {
     }
 });
 
+app.post('/makeCall', async (req, res, next) => {
+    console.log(`🐞 makeCall called.`);
+    console.dir(req.body);
+    const jwt = generateJWT();  // For InApp, the parameter should be given a user name.
+    const url = 'https://api.nexmo.com/v1/calls';
+    const headers = {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+    };
+    const body = JSON.stringify({
+        to: [{
+            type: 'phone',
+            // number: req.body.to
+            number: '818040643515'
+        }],
+        from: {
+            type: 'phone',
+            number: '815031023330'
+        },
+        ncco: [{
+        action: 'talk',
+        language: 'ja-JP',
+        model: 3,
+        premium: true,
+        text: 'こんにちは、今日はいい天気ですね。'
+        }]
+    });
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: body
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log('Call response:', data);
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+});
+
 // Event handler for Incoming call.
 app.post('/onCall', async (req, res, next) => {
     console.log(`🐞 onCall called via ${req.body.from || 'not PSTN Number'}`);
